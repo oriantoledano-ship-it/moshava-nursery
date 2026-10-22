@@ -76,7 +76,7 @@
         en.target.classList.add('is-in');
         io.unobserve(en.target);
       });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.01 });
     els.forEach(function (el) { io.observe(el); });
   }
 
@@ -91,15 +91,22 @@
     track.style.setProperty('--marq-dist', dist + 'px');
   }
 
-  /* the reel plays only while it is on screen */
+  /* the reel starts downloading a screen before it arrives, and plays only while it is on screen */
   function initReel() {
     var v = $('video[data-reel]');
     if (!v) return;
     if (reduce || !('IntersectionObserver' in window)) return;
+    var primed = false;
+    new IntersectionObserver(function (en) {
+      if (!en[0].isIntersecting || primed) return;
+      primed = true;
+      v.preload = 'auto';
+      v.load();
+    }, { rootMargin: '900px 0px' }).observe(v);
     new IntersectionObserver(function (en) {
       if (en[0].isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
       else v.pause();
-    }, { threshold: 0.35 }).observe(v);
+    }, { threshold: 0.15 }).observe(v);
   }
 
   /* map: inserted only once the visitor pauses near it, so scrolling past never stutters */
