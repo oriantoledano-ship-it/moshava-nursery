@@ -551,6 +551,20 @@ body.mcta-on .mcta { transform: none; }
 .prose figcaption { margin-top: 10px; font-size: 15px; color: var(--ink-faint); text-align: center; }
 .tip { padding: 22px 24px; border-radius: 22px; background: var(--butter); }
 .tip strong { font-family: var(--display); font-weight: 600; font-size: 20px; display: block; margin-bottom: 4px; }
+.tldr { padding: 20px 24px; border-radius: 22px; background: var(--mint); border-inline-start: 6px solid var(--leaf); }
+.tldr strong { font-family: var(--display); font-weight: 600; font-size: 20px; display: block; margin-bottom: 4px; color: var(--leaf-deep); }
+.tldr p { margin: 0; color: var(--ink); }
+.prose .facts { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: inset 0 0 0 2px var(--line); font-size: 17px; }
+.facts caption { caption-side: top; padding-bottom: 10px; text-align: start; font-family: var(--display); font-weight: 600; font-size: 21px; color: var(--ink); }
+.facts th, .facts td { padding: 12px 18px; text-align: start; vertical-align: top; border-top: 1px solid var(--line); }
+.facts tr:first-child th, .facts tr:first-child td { border-top: 0; }
+.facts th { width: 30%; background: var(--paper-2); font-weight: 800; color: var(--ink); white-space: nowrap; }
+.facts td { color: var(--ink-soft); }
+.prose .byline { margin-top: 40px; padding-top: 18px; border-top: 2px dashed var(--line); font-size: 16px; color: var(--ink-faint); }
+@media (max-width: 640px) {
+  .facts th, .facts td { padding: 10px 12px; }
+  .facts th { white-space: normal; width: 34%; }
+}
 .cta-box { margin-top: 48px; padding: clamp(24px, 3vw, 34px); border-radius: 30px; background: var(--forest); color: var(--cream-text); }
 .cta-box h2 { margin: 0; font-size: clamp(26px, 3vw, 34px); color: var(--cream-text); }
 .cta-box p { margin-top: 10px; color: var(--cream-soft); }
