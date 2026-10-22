@@ -1,0 +1,156 @@
+/* משתלת המושבה - accessibility widget + accessibility state overrides, in the site's leaf green and cream. */
+
+.a11y-btn,
+.a11y-panel { font-family: 'Assistant', system-ui, sans-serif; }
+
+/* ---------- Floating button ---------- */
+.a11y-btn {
+  position: fixed;
+  inset-inline-start: 18px;
+  bottom: 18px;
+  z-index: 9950;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 1.5px solid #1D7330;
+  border-radius: 50%;
+  background: #1D7330;
+  color: #FFF8EF;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 12px 28px -12px rgba(20, 24, 33, .55);
+  transition: transform .3s ease, background .3s ease, border-color .3s ease;
+}
+.a11y-btn:hover { transform: scale(1.06); background: #2E9E3E; border-color: #2E9E3E; }
+.a11y-btn:focus-visible { outline: 2px solid #2E9E3E; outline-offset: 3px; }
+
+/* ---------- Panel ---------- */
+.a11y-panel {
+  border-radius: 16px;
+  position: fixed;
+  inset-inline-start: 18px;
+  bottom: 84px;
+  z-index: 9951;
+  width: 302px;
+  max-width: calc(100vw - 36px);
+  padding: 22px;
+  background: #FFFDF8;
+  border: 1px solid rgba(23, 48, 31, .16);
+  box-shadow: 0 30px 66px -30px rgba(20, 24, 33, .6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px) scale(.97);
+  transform-origin: bottom right;
+  transition: opacity .28s ease, transform .28s ease, visibility .28s ease;
+}
+.a11y-panel.is-open { opacity: 1; visibility: visible; transform: none; }
+
+.a11y-title {
+  margin: 0 0 14px;
+  font-family: 'Fredoka', 'Assistant', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  color: #17301F;
+}
+.a11y-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #17301F;
+}
+.a11y-seg {
+  border-radius: 10px;
+  display: inline-flex;
+  padding: 3px;
+  background: #E9F5DC;
+  border: 1px solid rgba(23, 48, 31, .12);
+}
+.a11y-chip {
+  border-radius: 7px;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #435648;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.a11y-chip:hover { color: #17301F; }
+.a11y-chip[aria-pressed="true"] { background: #1D7330; color: #FFF8EF; }
+.a11y-chip:focus-visible { outline: 2px solid #2E9E3E; outline-offset: 2px; }
+
+.a11y-reset {
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 11px;
+  border: 1px solid rgba(23, 48, 31, .2);
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: #17301F;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.a11y-reset:hover { background: #1D7330; color: #FFF8EF; }
+
+.a11y-statement {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #435648;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.a11y-statement:hover { color: #2E9E3E; }
+
+/* ==========================================================================
+   Accessibility state overrides
+   ========================================================================== */
+
+/* Larger text - scales page blocks, never the widget itself */
+[data-text="large"] body > *:not(.a11y-btn):not(.a11y-panel) { zoom: 1.12; }
+
+/* High contrast - deepen the muted inks so body copy passes AA comfortably.
+   `html[...]` so these outrank the page's own :root, same specificity but
+   earlier in source order. */
+html[data-contrast="high"] {
+  --ink-soft: #17301F;
+  --ink-faint: #2B3F31;
+  --line: rgba(23, 48, 31, .4);
+}
+
+/* Emphasise links */
+[data-links="on"] a:not(.a11y-statement) {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+/* Stop motion */
+[data-motion="off"] { scroll-behavior: auto !important; }
+[data-motion="off"] *,
+[data-motion="off"] *::before,
+[data-motion="off"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+[data-motion="off"] .rv {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (max-width: 480px) {
+  .a11y-btn { width: 48px; height: 48px; inset-inline-start: 14px; bottom: 14px; }
+  .a11y-panel { inset-inline-start: 14px; bottom: 74px; }
+}
